@@ -16,8 +16,10 @@ type Config struct {
 	DataPath      string `pflag:"data-path,d,linkcard data file path" json:"data_path,omitempty"`
 	ImageDir      string `pflag:"image-dir,i,image directory path" json:"image_dir,omitempty"`
 	ImageBasePath string `pflag:"image-base-path,b,base path for image directory" json:"image_base_path,omitempty"`
+	ImageWidth    int    `pflag:"image-width,w,width of image" json:"image_width,omitempty"`
 	Rating        int    `pflag:"rating,r,number of stars (1-5)" json:"rating,omitempty"`
 	PageTitle     string `pflag:"page-title,t,title of the page" json:"page_title,omitempty"`
+	Comment       string `pflag:"comment,c,comment for linkcard data" json:"comment,omitempty"`
 }
 
 // DefaultConfig returns a default Config instance.
@@ -28,8 +30,10 @@ func DefaultConfig() *Config {
 		ImageDir:      "",
 		ImageBasePath: "",
 		UserAgent:     "",
+		ImageWidth:    100,
 		Rating:        0,
 		PageTitle:     "",
+		Comment:       "",
 	}
 }
 

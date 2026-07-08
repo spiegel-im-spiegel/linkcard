@@ -21,7 +21,10 @@ type LinkCard struct {
 	Description string  `json:"description,omitempty"`
 	ImageURL    string  `json:"image_url,omitempty"`
 	ImagePath   string  `json:"image_path,omitempty"`
+	ImageWidth  int     `json:"image_width,omitempty"`
+	Rating      int     `json:"rating,omitempty"`
 	Stars       [5]bool `json:"stars,omitempty"`
+	Comment     string  `json:"comment,omitempty"`
 }
 
 // newLinkCard creates a new LinkCard instance based on the provided configuration and web information.
@@ -39,6 +42,9 @@ func newLinkCard(ctx context.Context, cfg *config.Config, info *webinfo.Webinfo)
 		Description: info.Description,
 		URL:         info.URL,
 		ImageURL:    info.ImageURL,
+		ImageWidth:  cfg.ImageWidth,
+		Rating:      cfg.Rating,
+		Comment:     cfg.Comment,
 	}
 	// Generate a unique hash ID (SHA1) for the link card based on the URL.
 	h := sha1.Sum([]byte(info.URL)) // #nosec G401
@@ -49,19 +55,18 @@ func newLinkCard(ctx context.Context, cfg *config.Config, info *webinfo.Webinfo)
 	}
 
 	// Fill in Stars based on the rating, ensuring it does not exceed 5.
-	if cfg.Rating > 0 {
-		rating := cfg.Rating
-		if rating > 5 {
-			rating = 5
+	if lc.Rating > 0 {
+		if lc.Rating > 5 {
+			lc.Rating = 5
 		}
-		for i := range rating {
+		for i := range lc.Rating {
 			lc.Stars[i] = true
 		}
 	}
 
 	// Download the thumbnail image if ImageDir is specified in the configuration.
 	if cfg.ImageDir != "" {
-		tempf, err := info.DownloadThumbnail(ctx, cfg.ImageDir, 100, true)
+		tempf, err := info.DownloadThumbnail(ctx, cfg.ImageDir, cfg.ImageWidth, true)
 		if err != nil {
 			return nil, errs.Wrap(err, errs.WithContext("image_url", info.ImageURL))
 		}
