@@ -65,7 +65,7 @@ func newLinkCard(ctx context.Context, cfg *config.Config, info *webinfo.Webinfo)
 	}
 
 	// Download the thumbnail image if ImageDir is specified in the configuration.
-	if cfg.ImageDir != "" {
+	if cfg.ImageDir != "" && info.ImageURL != "" {
 		tempf, err := info.DownloadThumbnail(ctx, cfg.ImageDir, cfg.ImageWidth, true)
 		if err != nil {
 			return nil, errs.Wrap(err, errs.WithContext("image_url", info.ImageURL))
