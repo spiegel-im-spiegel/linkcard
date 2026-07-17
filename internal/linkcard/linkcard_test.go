@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewLinkCard_RatingIsClampedWithoutMutatingConfig(t *testing.T) {
-	cfg := &config.Config{ImageWidth: 240, Rating: 7, Comment: "memo"}
+	cfg := &config.Config{ImageWidth: 240, Rating: 7, Comment: "memo", ReleaseDate: "2026-07-17"}
 	info := &webinfo.Webinfo{
 		URL:         "https://example.com",
 		Title:       "Example Title",
@@ -33,6 +33,9 @@ func TestNewLinkCard_RatingIsClampedWithoutMutatingConfig(t *testing.T) {
 	}
 	if lc.Comment != "memo" {
 		t.Fatalf("lc.Comment = %q, want %q", lc.Comment, "memo")
+	}
+	if lc.ReleaseDate != "2026-07-17" {
+		t.Fatalf("lc.ReleaseDate = %q, want %q", lc.ReleaseDate, "2026-07-17")
 	}
 	if lc.Title != "Example Title" {
 		t.Fatalf("lc.Title = %q, want %q", lc.Title, "Example Title")

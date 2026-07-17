@@ -41,7 +41,7 @@ func TestImportConfigFromFile_ValidJSON(t *testing.T) {
 	tmp := t.TempDir()
 	chdirForTest(t, tmp)
 
-	data := []byte(`{"user_agent":"test-agent","data_path":"./cards.json","image_dir":"./img","image_base_path":"/assets","image_width":240,"rating":4,"page_title":"page","comment":"memo"}`)
+	data := []byte(`{"user_agent":"test-agent","data_path":"./cards.json","image_dir":"./img","image_base_path":"/assets","image_width":240,"rating":4,"page_title":"page","comment":"memo","release_date":"2026-07-17"}`)
 	if err := os.WriteFile(configFile, data, 0o600); err != nil {
 		t.Fatalf("WriteFile(%q) error = %v", configFile, err)
 	}
@@ -74,6 +74,9 @@ func TestImportConfigFromFile_ValidJSON(t *testing.T) {
 	}
 	if cfg.Comment != "memo" {
 		t.Errorf("Comment = %q, want %q", cfg.Comment, "memo")
+	}
+	if cfg.ReleaseDate != "2026-07-17" {
+		t.Errorf("ReleaseDate = %q, want %q", cfg.ReleaseDate, "2026-07-17")
 	}
 }
 
