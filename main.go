@@ -8,7 +8,7 @@ import (
 )
 
 // Version of the application for build info, will be replaced by build script
-var Version = "v0.0.0-dev"
+var Version = ""
 
 // main function of the application
 func main() {
