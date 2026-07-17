@@ -23,7 +23,7 @@ builds:
   main: ./
   flags:
   - -trimpath
-  ldflags: -s -w -X github.com/spiegel-im-spiegel/linkcard/main.Version=v{{ .Version }}
+  ldflags: -s -w -X main.Version=v{{ .Version }}
   binary: linkcard
 
 archives:
