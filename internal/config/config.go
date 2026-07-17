@@ -20,6 +20,7 @@ type Config struct {
 	Rating        int    `pflag:"rating,r,number of stars (1-5)" json:"rating,omitempty"`
 	PageTitle     string `pflag:"page-title,t,title of the page" json:"page_title,omitempty"`
 	Comment       string `pflag:"comment,c,comment for linkcard data" json:"comment,omitempty"`
+	ReleaseDate   string `pflag:"release-date,,release date string of the content" json:"release_date,omitempty"`
 }
 
 // DefaultConfig returns a default Config instance.
@@ -34,6 +35,7 @@ func DefaultConfig() *Config {
 		Rating:        0,
 		PageTitle:     "",
 		Comment:       "",
+		ReleaseDate:   "",
 	}
 }
 

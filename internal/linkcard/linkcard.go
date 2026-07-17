@@ -25,6 +25,7 @@ type LinkCard struct {
 	Rating      int     `json:"rating,omitempty"`
 	Stars       [5]bool `json:"stars,omitempty"`
 	Comment     string  `json:"comment,omitempty"`
+	ReleaseDate string  `json:"release_date,omitempty"`
 }
 
 // newLinkCard creates a new LinkCard instance based on the provided configuration and web information.
@@ -45,6 +46,7 @@ func newLinkCard(ctx context.Context, cfg *config.Config, info *webinfo.Webinfo)
 		ImageWidth:  cfg.ImageWidth,
 		Rating:      cfg.Rating,
 		Comment:     cfg.Comment,
+		ReleaseDate: cfg.ReleaseDate,
 	}
 	// Generate a unique hash ID (SHA1) for the link card based on the URL.
 	h := sha1.Sum([]byte(info.URL)) // #nosec G401
