@@ -3,8 +3,6 @@ package facade
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"os"
 	"os/signal"
 	"runtime"
@@ -37,13 +35,7 @@ func Execute(ui *rwi.RWI, appVersion string, args []string) (exit exitcode.ExitC
 
 	exit = exitcode.Normal
 	if err := run(ui, args, NewVersionString(appVersion)); err != nil {
-		var jerr *jsonOutputError
-		if errors.As(err, &jerr) {
-			_ = ui.OutputErrln(jerr.Payload)
-			exit = exitcode.Abnormal
-			return
-		}
-		_ = ui.OutputErrln(fmt.Sprintf("error: %v", err))
+		_ = ui.OutputErrln(errs.EncodeJSON(err)) // Print error message in JSON format to standard error
 		exit = exitcode.Abnormal
 	}
 	return
