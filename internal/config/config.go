@@ -21,6 +21,7 @@ type Config struct {
 	PageTitle     string `pflag:"page-title,t,title of the page" json:"page_title,omitempty"`
 	Comment       string `pflag:"comment,c,comment for linkcard data" json:"comment,omitempty"`
 	ReleaseDate   string `pflag:"release-date,,release date string of the content" json:"release_date,omitempty"`
+	ForceHTTP11   bool   `pflag:"force-http11,,force HTTP/1.1 for requests" json:"force_http11,omitempty"`
 }
 
 // DefaultConfig returns a default Config instance.
@@ -36,6 +37,7 @@ func DefaultConfig() *Config {
 		PageTitle:     "",
 		Comment:       "",
 		ReleaseDate:   "",
+		ForceHTTP11:   false,
 	}
 }
 
