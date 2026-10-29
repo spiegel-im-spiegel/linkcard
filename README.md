@@ -6,7 +6,7 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/spiegel-im-spiegel/linkcard/main/LICENSE)
 [![GitHub release](http://img.shields.io/github/release/spiegel-im-spiegel/linkcard.svg)](https://github.com/spiegel-im-spiegel/linkcard/releases/latest)
 
-This package is required Go 1.26 or later.
+This package is required Go 1.27.3 or later.
 
 ## Build and Install
 
@@ -42,6 +42,7 @@ $ linkcard [flags] <url> [<url> ...]
 - `-t, --page-title` : override page title in output
 - `-c, --comment` : attach a comment string to output
 - `--release-date` : attach release date string to output (no transformation)
+- `--force-http11` : force HTTP/1.1 for requests
 - `-v, --version` : show version information
 
 ## Examples

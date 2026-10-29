@@ -39,7 +39,7 @@ func GenerateLinkCard(ctx context.Context, cfg *config.Config, urls []string) ([
 
 // getWebInfo fetches web information for the given URL and creates a LinkCard instance based on the provided configuration.
 func getWebInfo(ctx context.Context, cfg *config.Config, urlStr string) (*LinkCard, error) {
-	info, err := webinfo.Fetch(ctx, urlStr, cfg.UserAgent)
+	info, err := webinfo.Fetch(ctx, urlStr, cfg.UserAgent, cfg.ForceHTTP11)
 	if err != nil {
 		return nil, errs.Wrap(err, errs.WithContext("url", urlStr))
 	}
