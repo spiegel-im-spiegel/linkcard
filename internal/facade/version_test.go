@@ -6,8 +6,9 @@ import (
 )
 
 func TestNewVersionString(t *testing.T) {
+	getGoVersion = func() string { return "(build with go1.27.3)" }
 	got := NewVersionString("v1.2.3").String()
-	want := "linkcard v1.2.3\nhttps://github.com/spiegel-im-spiegel/linkcard"
+	want := "linkcard v1.2.3 (build with go1.27.3)\nhttps://github.com/spiegel-im-spiegel/linkcard"
 	if got != want {
 		t.Fatalf("NewVersionString().String() = %q, want %q", got, want)
 	}
@@ -22,9 +23,11 @@ func TestUsageString(t *testing.T) {
 }
 
 func TestReplaceVersion_WithExplicitVersion(t *testing.T) {
+	getGoVersion = func() string { return "(build with go1.27.3)" }
 	got := replaceVersion("v9.9.9")
-	if got != "v9.9.9" {
-		t.Fatalf("replaceVersion() = %q, want %q", got, "v9.9.9")
+	want := "v9.9.9 (build with go1.27.3)"
+	if got != want {
+		t.Fatalf("replaceVersion() = %q, want %q", got, want)
 	}
 }
 
@@ -46,8 +49,8 @@ func TestNewVersionString_EmptyVersionUsesFallback(t *testing.T) {
 }
 
 func TestJoinNonEmpty(t *testing.T) {
-	got := joinNonEmpty("abc123", "", "(compiled with go1.26.5)")
-	want := "abc123 (compiled with go1.26.5)"
+	got := joinNonEmpty("abc123", "", "(build with go1.26.5)")
+	want := "abc123 (build with go1.26.5)"
 	if got != want {
 		t.Fatalf("joinNonEmpty() = %q, want %q", got, want)
 	}

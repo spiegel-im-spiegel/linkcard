@@ -25,12 +25,11 @@ func NewVersionString(v string) versionString {
 
 // replaceVersion returns the version string based on the provided version and build information
 func replaceVersion(v string) string {
-	if v != "" {
-		return v
-	}
-
+	goVersion := getGoVersion()
 	if info, ok := debug.ReadBuildInfo(); ok {
-		goVersion := fmt.Sprintf("(compiled with %v)", info.GoVersion)
+		if v != "" {
+			return joinNonEmpty(v, goVersion)
+		}
 		if info.Main.Version != "" {
 			return joinNonEmpty(info.Main.Version, goVersion)
 		}
@@ -48,8 +47,17 @@ func replaceVersion(v string) string {
 		if revision != "" {
 			return joinNonEmpty(revision, dirty, goVersion)
 		}
+	} else if v != "" {
+		return v
 	}
 	return "(version not set)"
+}
+
+var getGoVersion = func() string {
+	if info, ok := debug.ReadBuildInfo(); ok {
+		return fmt.Sprintf("(build with %v)", info.GoVersion)
+	}
+	return ""
 }
 
 func joinNonEmpty(parts ...string) string {
